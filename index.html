@@ -98,7 +98,10 @@ h1 em{color:var(--blue)}
 .stamp-inner svg{display:block;width:100%;height:100%}
 .stamp-text{font:700 11px var(--mono);letter-spacing:2px}
 .collage .stamp{position:absolute;top:34px;left:30px;z-index:1;rotate:-7deg}
-.coil{position:absolute;top:2px;left:150px;width:104px;height:auto;color:var(--blue);opacity:.85}
+.sk{position:absolute;z-index:5;height:auto;pointer-events:none;filter:drop-shadow(0 2px 3px rgba(60,48,28,.24))}
+.sk-film{top:0;left:166px;width:96px;rotate:-10deg}
+.sk-coffee{top:-56px;right:-12px;width:72px;rotate:9deg}
+.sk-vinyl{right:-30px;bottom:-32px;width:84px;rotate:12deg}
 .note{position:absolute;left:0;bottom:0;z-index:3;width:310px;filter:drop-shadow(0 10px 14px rgba(60,48,28,.16));rotate:-1.4deg}
 .note-paper{padding:30px 24px 18px;background-color:var(--card);background-image:linear-gradient(transparent 27px,var(--rule-blue) 27px);background-size:100% 28px;background-position:0 30px;clip-path:polygon(0 3%,5% 0,11% 2.4%,18% .4%,26% 2.6%,33% .2%,41% 2%,49% .3%,57% 2.5%,64% .5%,72% 2.2%,80% 0,88% 2.4%,94% .6%,100% 2%,100% 100%,0 100%)}
 .note-title{margin:0;color:var(--blue);font:700 28px/28px var(--hand)}
@@ -152,6 +155,7 @@ h2 em{color:var(--blue)}
 .clipping{display:grid;grid-template-columns:170px minmax(0,1fr) auto;gap:24px;align-items:center;padding:24px 0;border-bottom:1px solid var(--rule)}
 .clip-type{color:var(--ink-soft);font:400 12.5px/1.35 var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .clip-title{display:block;font:400 25px/1.22 var(--serif)}
+.clip-gist{display:block;margin-top:5px;color:var(--ink-soft);font-size:15.5px;line-height:1.5}
 .clip-meta{display:block;margin-top:5px;color:var(--muted);font-size:14.5px;line-height:1.5}
 .bacteria{width:88px;height:46px;color:var(--blue)}
 
@@ -185,7 +189,7 @@ h2 em{color:var(--blue)}
 .postcard-divider{background:var(--rule)}
 .postcard-addr{position:relative;z-index:1;padding-top:132px}
 .postcard-addr .stamp{position:absolute;top:0;right:0;width:96px;height:120px;rotate:4deg}
-.postmark{position:absolute;top:22px;right:76px;width:118px;height:auto;color:var(--blue);opacity:.72;rotate:-12deg;pointer-events:none}
+.tile{position:absolute;top:22px;right:84px;width:88px;height:88px;rotate:-8deg;filter:drop-shadow(0 4px 6px rgba(60,48,28,.18));pointer-events:none}
 .address{margin:0;padding:0;list-style:none}
 .address li{display:flex;align-items:baseline;gap:14px;padding:12px 0 8px;border-bottom:1px solid var(--rule-blue)}
 .address .label{flex:none;width:78px;color:var(--muted);font:400 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
@@ -215,7 +219,7 @@ h2 em{color:var(--blue)}
   .postcard-msg{align-self:start;padding-right:110px}
   .postcard-addr{padding-top:0}
   .postcard-addr .stamp{top:auto;bottom:calc(100% + 30px)}
-  .postmark{top:auto;bottom:calc(100% + 20px);right:72px;width:96px}
+  .tile{top:auto;bottom:calc(100% + 26px);right:80px;width:76px;height:76px}
 }
 @media (max-width:640px){
   .wrap{width:calc(100% - 32px)}
@@ -245,15 +249,17 @@ h2 em{color:var(--blue)}
   .sticker{right:-12px;bottom:18px;width:62px}
   .collage .stamp{grid-column:1;grid-row:1;justify-self:center;margin-top:44px}
   .note{grid-column:1/-1;width:100%}
-  .coil{display:none}
+  .sk-film{top:-8px;left:36%;width:74px}
+  .sk-coffee{top:-48px;right:-6px;width:60px}
+  .sk-vinyl{right:-10px;bottom:-26px;width:60px}
   .record{padding:20px 18px 16px}
   .record dd{font-size:24px}
   .clipping{grid-template-columns:1fr}
   .bacteria{display:none}
-  .postcard-msg{padding-right:76px}
+  .postcard-msg{padding-right:116px}
   .postcard-msg .wash{width:230px;height:130px;left:-36px;opacity:.55}
   .postcard-addr .stamp{right:-6px;width:72px;height:96px}
-  .postmark{display:none}
+  .tile{right:52px;width:56px;height:56px}
   .address li{flex-direction:column;gap:4px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -270,6 +276,12 @@ h2 em{color:var(--blue)}
     <filter id="crayon" x="-5%" y="-5%" width="110%" height="110%">
       <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="4" result="n"/>
       <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="die-cut" x="-25%" y="-25%" width="150%" height="150%">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="4.5" result="grow"/>
+      <feFlood flood-color="#ffffff"/>
+      <feComposite in2="grow" operator="in" result="edge"/>
+      <feMerge><feMergeNode in="edge"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <symbol id="mx-outline" viewBox="0 0 576 382">
       <path d="M8.8 13.4 L52.8 9.6 L119.8 37.4 L172.2 37.4 L172.2 28.4 L203.0 28.4 L231.1 51.0 L241.2 72.0 L264.1 84.4 L275.1 69.0 L297.1 68.6 L305.4 77.0 L313.6 90.8 L331.6 114.0 L339.3 136.0 L355.8 143.0 L375.1 145.0 L369.6 172.0 L364.1 220.0 L374.2 250.0 L393.4 280.0 L411.8 290.0 L425.5 301.0 L443.9 295.0 L473.2 291.0 L487.9 280.0 L496.1 267.0 L499.8 244.0 L513.6 238.0 L539.2 233.0 L564.9 236.0 L564.0 247.0 L553.0 260.0 L551.2 280.0 L545.7 299.0 L537.4 294.0 L527.3 306.0 L521.8 307.6 L488.2 307.6 L488.2 319.0 L480.0 319.0 L498.5 342.0 L474.5 342.6 L465.9 359.0 L465.5 373.0 L443.9 352.0 L425.5 340.0 L410.8 341.0 L387.0 351.0 L359.5 340.0 L324.6 328.0 L293.5 312.0 L282.5 305.0 L258.6 298.0 L243.9 282.0 L225.6 256.0 L218.3 234.0 L226.5 225.0 L205.4 200.0 L183.4 174.0 L157.7 152.0 L148.6 130.0 L122.9 106.0 L99.0 84.0 L80.7 40.0 L52.3 29.0 L51.0 44.0 L56.9 60.0 L75.2 84.0 L97.2 119.0 L115.5 146.0 L127.5 168.0 L133.9 180.0 L149.5 200.0 L141.2 206.4 L133.9 192.0 L110.0 176.0 L100.9 168.0 L100.9 152.0 L93.5 139.0 L79.8 130.0 L60.5 121.0 L46.2 107.0 L63.3 109.0 L65.1 102.0 L58.7 91.0 L44.0 72.0 L33.9 62.0 L28.4 52.0 L18.3 40.0 L17.4 27.0 Z"/>
@@ -314,7 +326,18 @@ h2 em{color:var(--blue)}
 
     <div class="collage">
       <div class="wash" aria-hidden="true"></div>
-      <svg class="coil" viewBox="0 0 96 44" aria-hidden="true"><path d="M4 32C14 6 34 6 30 26 27 40 12 35 20 22 28 8 52 8 48 28 45 42 30 38 38 24 46 10 70 10 66 30 63 42 50 39 56 26 63 13 84 13 92 34" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" filter="url(#crayon)"/></svg>
+      <svg class="sk sk-film" viewBox="0 0 96 66" aria-hidden="true">
+        <g filter="url(#die-cut)" stroke="#1d2640" stroke-width="1.6" stroke-linejoin="round">
+          <path d="M44 20h40l6 4-6 4 6 4-6 4 6 4-6 4H44z" fill="#4a3426"/>
+          <g fill="#f4e6c8" stroke="none"><rect x="49" y="22.5" width="3.5" height="3" rx=".6"/><rect x="56" y="22.5" width="3.5" height="3" rx=".6"/><rect x="63" y="22.5" width="3.5" height="3" rx=".6"/><rect x="70" y="22.5" width="3.5" height="3" rx=".6"/><rect x="77" y="22.5" width="3.5" height="3" rx=".6"/><rect x="49" y="38.5" width="3.5" height="3" rx=".6"/><rect x="56" y="38.5" width="3.5" height="3" rx=".6"/><rect x="63" y="38.5" width="3.5" height="3" rx=".6"/><rect x="70" y="38.5" width="3.5" height="3" rx=".6"/><rect x="77" y="38.5" width="3.5" height="3" rx=".6"/></g>
+          <rect x="12" y="12" width="34" height="42" rx="3" fill="#f2c230"/>
+          <rect x="12" y="24" width="34" height="18" fill="#d9532b"/>
+          <text x="29" y="36.5" text-anchor="middle" fill="#fff" stroke="none" style="font:700 9px ui-monospace,monospace">35mm</text>
+          <rect x="9" y="7" width="40" height="7" rx="2" fill="#262a33"/>
+          <rect x="9" y="52" width="40" height="7" rx="2" fill="#262a33"/>
+          <rect x="22" y="2" width="14" height="6" rx="1.5" fill="#262a33"/>
+        </g>
+      </svg>
       <div class="stamp" aria-hidden="true" data-reveal style="--d:.3s">
         <div class="stamp-inner">
           <svg viewBox="0 -10 100 112">
@@ -439,7 +462,7 @@ h2 em{color:var(--blue)}
           </figure>
           <h3>Wastewater treatment design for the Río Atoyac basin</h3>
           <p class="affiliation">Interdisciplinary research team · Aug 2026–present</p>
-          <p class="description">Analyzing laboratory water-quality measurements to estimate textile-industry contamination and support the design of a treatment train for a river-remediation initiative. Related public code includes exploratory analysis and missing-data work for water samples.</p>
+          <p class="description">The Río Atoyac, which runs through Tlaxcala and Puebla, is considered one of the most polluted rivers in Mexico, receiving industrial and municipal wastewater along its course. I’m analyzing laboratory water-quality measurements to estimate textile-industry contamination and support the design of a treatment train for a river-remediation initiative.</p>
           <ul class="tags"><li>Water quality</li><li>Environmental data</li><li>Treatment design</li></ul>
           <div class="project-links">
             <a class="ink-link" href="https://github.com/danielarenee/serviciosocial" target="_blank" rel="noreferrer">Analysis repository ↗</a>
@@ -455,21 +478,23 @@ h2 em{color:var(--blue)}
           <p class="project-kicker">Operations research · UDLAP</p>
           <figure class="fig">
             <span class="tape" aria-hidden="true"></span>
-            <svg viewBox="0 0 300 130" aria-hidden="true">
+            <svg viewBox="0 0 300 150" aria-hidden="true">
               <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M150 14 258 120H42Z" stroke-width="2" filter="url(#crayon)"/>
-                <path d="M104 102 122 88 116 70 140 64 152 80 166 62 180 72" stroke-width="1.5" stroke-dasharray="3 5"/>
+                <path d="M20 10V130H292" stroke-width="1.6" opacity=".7"/>
+                <path d="M22 46H290" stroke-width="1.4" stroke-dasharray="6 5" opacity=".6"/>
+                <path d="M22 92C60 88 80 40 110 36 128 34 134 70 150 72 170 74 182 38 206 34 222 32 230 66 248 70 264 74 276 64 290 60" stroke-width="2.4" stroke-dasharray="2 6" opacity=".75"/>
+                <path d="M114 8v18M109 21l5 6 5-6M208 8v18M203 21l5 6 5-6" stroke-width="2" filter="url(#crayon)"/>
               </g>
-              <g fill="currentColor"><circle cx="104" cy="102" r="2.6"/><circle cx="122" cy="88" r="2.6"/><circle cx="116" cy="70" r="2.6"/><circle cx="140" cy="64" r="2.6"/><circle cx="152" cy="80" r="2.6"/><circle cx="166" cy="62" r="2.6"/><circle cx="180" cy="72" r="5"/></g>
-              <text class="lbl" x="160" y="20">s₁</text>
-              <text class="lbl" x="264" y="126">s₂</text>
-              <text class="lbl" x="18" y="126">s₃</text>
-              <text class="lbl" x="190" y="70">b</text>
+              <g fill="currentColor"><circle cx="30" cy="86" r="2.8"/><circle cx="44" cy="94" r="2.8"/><circle cx="58" cy="80" r="2.8"/><circle cx="72" cy="70" r="2.8"/><circle cx="86" cy="56" r="2.8"/><circle cx="100" cy="44" r="2.8"/><circle cx="114" cy="31" r="2.8"/><circle cx="128" cy="48" r="2.8"/><circle cx="142" cy="66" r="2.8"/><circle cx="156" cy="76" r="2.8"/><circle cx="170" cy="60" r="2.8"/><circle cx="184" cy="48" r="2.8"/><circle cx="198" cy="30" r="2.8"/><circle cx="212" cy="44" r="2.8"/><circle cx="226" cy="58" r="2.8"/><circle cx="240" cy="74" r="2.8"/><circle cx="254" cy="64" r="2.8"/><circle cx="268" cy="72" r="2.8"/><circle cx="282" cy="58" r="2.8"/></g>
+              <text class="lbl" x="122" y="20">act</text>
+              <text class="lbl" x="250" y="40">limit</text>
+              <text class="lbl" x="112" y="106">true level (hidden)</text>
+              <text class="lbl" x="26" y="124">• noisy readings</text>
             </svg>
           </figure>
-          <h3>Optimal control of environmental pollution via POMDP</h3>
+          <h3>Optimal control of environmental pollution via partially observable Markov decision processes</h3>
           <p class="affiliation">Supervised by Prof. Rubén Blancas Rivera · Feb 2026–present</p>
-          <p class="description">Developing a partially observable control model for environmental pollution systems. Dynamic programming is used to simulate belief-state policies when measurements are noisy and the system state is not directly observable.</p>
+          <p class="description">Developing a partially observable Markov decision process (POMDP) to control pollution in environmental systems where the true pollution level can’t be measured directly. Dynamic programming is used to simulate policies that decide how to act based on noisy measurements.</p>
           <ul class="tags"><li>POMDP</li><li>Dynamic programming</li><li>Optimal control</li></ul>
         </article>
 
@@ -478,7 +503,7 @@ h2 em{color:var(--blue)}
             <span class="project-num" aria-hidden="true">04</span>
             <span class="stamp-label">Presented · Oct 2026</span>
           </div>
-          <p class="project-kicker">Network science · UACM</p>
+          <p class="project-kicker">Network science</p>
           <figure class="fig">
             <span class="tape" aria-hidden="true"></span>
             <svg viewBox="0 0 576 382" aria-hidden="true">
@@ -510,22 +535,22 @@ h2 em{color:var(--blue)}
       <ul class="clippings" aria-label="Other research communication">
         <li class="clipping" data-reveal>
           <span class="clip-type">Research posters</span>
-          <span><strong class="clip-title">Bacterial Bioremediation of Para-Nitrophenol</strong><span class="clip-meta">Atoyac River Rehabilitation Forum (2025); 22nd National Congress of Biological Sciences (2026)</span></span>
+          <span><strong class="clip-title">Bacterial Bioremediation of Para-Nitrophenol</strong><span class="clip-gist">Using bacteria to break down para-nitrophenol, a toxic industrial pollutant.</span><span class="clip-meta">Atoyac River Rehabilitation Forum (2025); 22nd National Congress of Biological Sciences (2026)</span></span>
           <svg class="bacteria" viewBox="0 0 90 46" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" filter="url(#crayon)"><rect x="6" y="12" width="30" height="11" rx="5.5" transform="rotate(-18 21 17)"/><rect x="38" y="24" width="28" height="11" rx="5.5" transform="rotate(12 52 29)"/><rect x="56" y="6" width="24" height="10" rx="5" transform="rotate(-32 68 11)"/><path d="M66 31q5 4 9 0t9 1M35 13q4-5 8-2t7-3"/></g></svg>
         </li>
         <li class="clipping" data-reveal>
           <span class="clip-type">Student newspaper</span>
-          <span><strong class="clip-title" lang="es">Del campus a los caminos mínimos: cómo encontrar la mejor ruta entre edificios</strong><span class="clip-meta">La Catarina, UDLAP · 2025 · Science reporter · Spanish-language article</span></span>
+          <span><strong class="clip-title" lang="es">Del campus a los caminos mínimos: cómo encontrar la mejor ruta entre edificios</strong><span class="clip-gist">How shortest-path algorithms like Dijkstra’s find the quickest walk between campus buildings.</span><span class="clip-meta">La Catarina, UDLAP · 2025 · Science reporter · Spanish-language article</span></span>
           <a class="ink-link" href="https://lacatarina.udlap.mx/2025/04/del-campus-a-los-caminos-minimos-como-encontrar-la-mejor-ruta-entre-edificios/" target="_blank" rel="noreferrer">La Catarina ↗</a>
         </li>
         <li class="clipping" data-reveal>
           <span class="clip-type">Student newspaper</span>
-          <span><strong class="clip-title" lang="es">Worldcoin: ¿Escanearías tu iris a cambio de dinero?</strong><span class="clip-meta">La Catarina, UDLAP · 2024 · Science reporter · Spanish-language article</span></span>
+          <span><strong class="clip-title" lang="es">Worldcoin: ¿Escanearías tu iris a cambio de dinero?</strong><span class="clip-gist">A look at Worldcoin, which pays in crypto for iris scans, and what that means for biometric privacy.</span><span class="clip-meta">La Catarina, UDLAP · 2024 · Science reporter · Spanish-language article</span></span>
           <a class="ink-link" href="https://lacatarina.udlap.mx/2024/09/worldcoin-escanearias-tu-iris-a-cambio-de-dinero/" target="_blank" rel="noreferrer">La Catarina ↗</a>
         </li>
         <li class="clipping" data-reveal>
           <span class="clip-type">Science writing</span>
-          <span><strong class="clip-title" lang="es">La feminización de la inteligencia artificial y la antropomorfización de los asistentes virtuales</strong><span class="clip-meta">Contexto, UDLAP · 2024 · Spanish-language article</span></span>
+          <span><strong class="clip-title" lang="es">La feminización de la inteligencia artificial y la antropomorfización de los asistentes virtuales</strong><span class="clip-gist">On the feminization of AI and why virtual assistants are given human, often female, personas.</span><span class="clip-meta">Contexto, UDLAP · 2024 · Spanish-language article</span></span>
           <a class="ink-link" href="https://contexto.udlap.mx/" target="_blank" rel="noreferrer">Contexto ↗</a>
         </li>
       </ul>
@@ -544,8 +569,9 @@ h2 em{color:var(--blue)}
           <div class="ticket-band"><span>Award</span><span>2025</span></div>
           <div class="ticket-body">
             <h3>National 1st Place</h3>
-            <p>My team built an app meant to transform the experience of watching soccer matches for people with color blindness, using computer vision and classification models. We won first place nationally.</p>
-            <p class="meta">CSC Hackathon · Apple &amp; Enactus</p>
+            <p>With my team, I built Colorscore, an app meant to transform the experience of watching soccer matches for people with color blindness. It uses two machine learning models to detect and classify players in real time, then overlays shapes and customizable colors so viewers can tell the teams apart.</p>
+            <p class="meta">Changemakers Social Challenge (CSC2025) · Accessibility category · Enactus &amp; Apple</p>
+            <a class="ink-link" href="https://blog.udlap.mx/blog/2025/11/20/estudiantes-de-la-udlap-triunfan-en-el-changemakers-social-challenge-csc2025/" target="_blank" rel="noreferrer">Read the story ↗</a>
           </div>
         </article>
         <article class="ticket" data-reveal style="--d:.08s">
@@ -562,7 +588,7 @@ h2 em{color:var(--blue)}
             <h3>Applied Mathematics School</h3>
             <p>A one-week KAUST program introducing undergraduate and master’s students to research topics in applied mathematics and computational science.</p>
             <p class="meta">KAUST · Saudi Arabia</p>
-            <a class="ink-link" href="https://cemse.kaust.edu.sa/topics/applied-mathematics" target="_blank" rel="noreferrer">Explore the Applied Mathematics School ↗</a>
+            <a class="ink-link" href="https://cemse.kaust.edu.sa/internship-opportunities/applied-mathematics-school-ams" target="_blank" rel="noreferrer">Explore the Applied Mathematics School ↗</a>
           </div>
         </article>
       </div>
@@ -577,54 +603,69 @@ h2 em{color:var(--blue)}
         <p class="section-note">Small milestones from the work I’m doing and the communities I’m part of.</p>
       </div>
       <div class="notebook" data-reveal>
+        <svg class="sk sk-coffee" viewBox="0 0 84 84" aria-hidden="true">
+          <g filter="url(#die-cut)" stroke="#1d2640" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 20c-5-5 5-8 0-14M44 20c-5-5 5-8 0-14" fill="none"/>
+            <ellipse cx="39" cy="75" rx="30" ry="5" fill="#e9dfcb"/>
+            <path d="M59 38c12-2 15 14 1 18" fill="none" stroke-width="7"/>
+            <path d="M59 38c12-2 15 14 1 18" fill="none" stroke="#fbf6ea" stroke-width="3.6"/>
+            <path d="M16 28h46l-4 38q-1 7-8 7H28q-7 0-8-7z" fill="#fbf6ea"/>
+            <path d="M18.3 46h41.4l-.8 9H19.1z" fill="#3150b0" stroke="none"/>
+            <path d="M16 28h46l-4 38q-1 7-8 7H28q-7 0-8-7z" fill="none"/>
+            <ellipse cx="39" cy="28" rx="23" ry="4.5" fill="#6b4226"/>
+          </g>
+        </svg>
         <ol class="log">
           <li>
-            <time datetime="2026-08">August 2026</time>
+            <time datetime="2026-10">October 2026</time>
             <div class="log-entry">
-              <p>Got accepted into a Data Science internship at Pfizer! Excited to bring data science into healthcare and learn from the team.</p>
-              <a class="ink-link" href="https://www.linkedin.com/in/danielarenee/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+              <p>The manuscript of my VSRP internship paper is finally available on arXiv!</p>
+              <a class="ink-link" href="https://arxiv.org/abs/2610.01111" target="_blank" rel="noreferrer">Read it on arXiv ↗</a>
             </div>
           </li>
           <li>
-            <time datetime="2026-08">Summer 2026</time>
+            <time datetime="2026-08">August 2026</time>
             <div class="log-entry">
-              <p>Wrapped up a three-month research internship with KAUST’s Numerical Mathematics group, building epidemic models with waning immunity and viral mutation.</p>
-              <a class="ink-link" href="https://www.linkedin.com/in/danielarenee/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+              <p>Just joined Pfizer U.S. as a Data Science intern! I’ll be working in the Global Commercial Analytics division. Excited for this new chapter :)</p>
+            </div>
+          </li>
+          <li>
+            <time datetime="2026-08">August 2026</time>
+            <div class="log-entry">
+              <p>Wrapped up my internship at KAUST as part of the Visiting Student Research Program, what an amazing experience! I will miss this place a lot :( Looking forward to the publication of our research!</p>
             </div>
           </li>
           <li>
             <time datetime="2026-04">April 2026</time>
             <div class="log-entry">
-              <p>After a year as President of the Data Science Student Board, I was elected UDLAP’s School of Sciences Representative for <span class="nowrap">2026–27</span>. Now I get to represent science students across all majors!</p>
+              <p>After a year as President of the Data Science Student Board, I was elected UDLAP’s School of Sciences Student Representative for <span class="nowrap">2026–27</span>. Now I get to represent students across ALL science majors! With great power comes great responsibility…</p>
               <a class="ink-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7452734833773957120/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
             </div>
           </li>
           <li>
-            <time datetime="2026">2026</time>
+            <time datetime="2026-04">April 2026</time>
             <div class="log-entry">
-              <p>Joined the Micron Global Women’s Mentorship Program cohort.</p>
-              <a class="ink-link" href="https://www.linkedin.com/in/danielarenee/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+              <p>Just joined the Micron Global Women’s Mentorship Program cohort. Excited to learn from women scientists and engineers from all over the world! &lt;3</p>
             </div>
           </li>
           <li>
             <time datetime="2026-02">February 2026</time>
             <div class="log-entry">
-              <p>Moderated a panel for the International Day of Women and Girls in Science at UDLAP, with three women scientists I deeply admire. We talked a lot about why role models in science matter.</p>
+              <p>I recently moderated a panel for the International Day of Women and Girls in Science at UDLAP, with three women scientists I deeply admire.</p>
               <a class="ink-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7427592019134476288/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
             </div>
           </li>
           <li>
-            <time datetime="2026">Early 2026</time>
+            <time datetime="2026-02">February 2026</time>
             <div class="log-entry">
-              <p>Full-circle moment: I was a judge at the ExpoScience contest organized by Prepa UPAEP, the same competition that sparked my research journey years ago.</p>
-              <a class="ink-link" href="https://www.linkedin.com/in/danielarenee/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+              <p>Full-circle moment: I was a judge at the ExpoScience contest organized by my high school, the same competition that sparked my research journey years ago hehe</p>
             </div>
           </li>
           <li>
             <time datetime="2025-10">October 2025</time>
             <div class="log-entry">
-              <p>As President of the Data Science Student Board, I led the organization of the II National Data Science Congress at UDLAP: talks, workshops, a datathon, a poster competition, and more.</p>
-              <a class="ink-link" href="https://lnkd.in/damHNj59" target="_blank" rel="noreferrer">Highlights ↗</a>
+              <p>As President of the Data Science Student Board, I led the organization of the II National Data Science Congress at UDLAP: we hosted talks, workshops, a datathon, a poster competition, and more.</p>
+              <a class="ink-link" href="https://sites.google.com/view/iicncd/iicncd" target="_blank" rel="noreferrer">Congress website ↗</a>
             </div>
           </li>
         </ol>
@@ -636,6 +677,16 @@ h2 em{color:var(--blue)}
 <footer class="contact" id="contact">
   <div class="wrap">
     <div class="postcard" data-reveal>
+      <svg class="sk sk-vinyl" viewBox="0 0 84 84" aria-hidden="true">
+        <g filter="url(#die-cut)">
+          <circle cx="42" cy="42" r="36" fill="#1f2128" stroke="#1d2640" stroke-width="1.6"/>
+          <g fill="none" stroke="#4a4e5a" stroke-width=".9"><circle cx="42" cy="42" r="30"/><circle cx="42" cy="42" r="25"/><circle cx="42" cy="42" r="20"/></g>
+          <path d="M20 26a28 28 0 0 1 14-10" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="42" cy="42" r="13" fill="#e8662f" stroke="#1d2640" stroke-width="1"/>
+          <path d="M35 39h14M37 44h10" stroke="#fbf6ea" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="42" cy="42" r="2.2" fill="#fbf6ea"/>
+        </g>
+      </svg>
       <div class="postcard-msg">
         <div class="wash" aria-hidden="true"></div>
         <p class="kicker"><span class="num">05</span> Contact</p>
@@ -652,15 +703,25 @@ h2 em{color:var(--blue)}
             </svg>
           </div>
         </div>
-        <svg class="postmark" viewBox="0 0 150 120" aria-hidden="true">
-          <g fill="none" stroke="currentColor" stroke-linecap="round" filter="url(#crayon)">
-            <circle cx="90" cy="60" r="44" stroke-width="2"/>
-            <circle cx="90" cy="60" r="31" stroke-width="1.2"/>
-            <path d="M2 44c8-6 16 6 24 0s16 6 24 0M2 60c8-6 16 6 24 0s16 6 24 0M2 76c8-6 16 6 24 0s16 6 24 0" stroke-width="2"/>
+        <svg class="tile" viewBox="0 0 100 100" aria-hidden="true">
+          <rect x="1" y="1" width="98" height="98" rx="3" fill="#fbfaf5" stroke="#d9d3c4"/>
+          <g fill="#1f45b5">
+            <path d="M1 1h20A20 20 0 0 1 1 21z"/><path d="M99 1v20A20 20 0 0 1 79 1z"/><path d="M99 99H79a20 20 0 0 1 20-20z"/><path d="M1 99V79a20 20 0 0 1 20 20z"/>
           </g>
-          <path id="pm-arc" d="M90 60m-37.5 0a37.5 37.5 0 1 1 75 0a37.5 37.5 0 1 1-75 0" fill="none"/>
-          <text fill="currentColor" style="font:700 8.5px var(--mono);letter-spacing:1px"><textPath href="#pm-arc" textLength="230">MÉXICO · DATA SCIENCE · UDLAP ·</textPath></text>
-          <text x="90" y="64" text-anchor="middle" fill="currentColor" style="font:700 22px var(--hand)">dr</text>
+          <rect x="6" y="6" width="88" height="88" rx="2" fill="none" stroke="#1f45b5" stroke-width="1" opacity=".45"/>
+          <g filter="url(#crayon)">
+            <g fill="#1f45b5">
+              <path id="tal-petal" d="M50 47C45 38 45 26 50 17 55 26 55 38 50 47Z"/>
+              <use href="#tal-petal" transform="rotate(45 50 50)"/><use href="#tal-petal" transform="rotate(90 50 50)"/><use href="#tal-petal" transform="rotate(135 50 50)"/><use href="#tal-petal" transform="rotate(180 50 50)"/><use href="#tal-petal" transform="rotate(225 50 50)"/><use href="#tal-petal" transform="rotate(270 50 50)"/><use href="#tal-petal" transform="rotate(315 50 50)"/>
+            </g>
+            <g fill="#f2b52e">
+              <path id="tal-leaf" d="M50 46C48 41 48 35 50 31 52 35 52 41 50 46Z" transform="rotate(22.5 50 50)"/>
+              <use href="#tal-leaf" transform="rotate(45 50 50)"/><use href="#tal-leaf" transform="rotate(90 50 50)"/><use href="#tal-leaf" transform="rotate(135 50 50)"/><use href="#tal-leaf" transform="rotate(180 50 50)"/><use href="#tal-leaf" transform="rotate(225 50 50)"/><use href="#tal-leaf" transform="rotate(270 50 50)"/><use href="#tal-leaf" transform="rotate(315 50 50)"/>
+            </g>
+            <g fill="#1f45b5"><circle cx="65.3" cy="13" r="2"/><circle cx="87" cy="34.7" r="2"/><circle cx="87" cy="65.3" r="2"/><circle cx="65.3" cy="87" r="2"/><circle cx="34.7" cy="87" r="2"/><circle cx="13" cy="65.3" r="2"/><circle cx="13" cy="34.7" r="2"/><circle cx="34.7" cy="13" r="2"/></g>
+            <circle cx="50" cy="50" r="7" fill="#f2b52e" stroke="#1f45b5" stroke-width="2"/>
+            <circle cx="50" cy="50" r="2.4" fill="#1f45b5"/>
+          </g>
         </svg>
         <ul class="address">
           <li><span class="label">Email</span><a href="mailto:danielarenee.ram@gmail.com">danielarenee.ram@gmail.com</a></li>
