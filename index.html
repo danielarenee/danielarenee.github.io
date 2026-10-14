@@ -61,10 +61,10 @@ h1,h2,h3{text-wrap:balance}
 .nav a:hover{color:var(--ink)}
 .nav a:not(:last-child)::after{content:","}
 
-.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px 56px;align-items:start;padding-top:64px}
+.hero{--h1:clamp(44px,8.6vw,112px);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px 56px;align-items:start;padding-top:64px}
 .hero-title{grid-column:1/-1}
 .eyebrow{margin:0 0 18px;color:var(--ink-2);font:500 15px/1.2 var(--sans)}
-h1{margin:0;font:800 clamp(44px,8.6vw,112px)/.9 var(--sans);letter-spacing:-.05em}
+h1{margin:0;font:800 var(--h1)/.9 var(--sans);letter-spacing:-.05em}
 h1 .line{display:block}
 h1 .line--sub{margin-top:.2em;color:var(--ink-2);font-size:.46em;font-weight:500;letter-spacing:-.03em}
 .intro{padding-top:8px}
@@ -79,8 +79,8 @@ h1 .line--sub{margin-top:.2em;color:var(--ink-2);font-size:.46em;font-weight:500
 .btn--primary{background:var(--ink);color:var(--paper)}
 .btn:hover{background:var(--blue);border-color:var(--blue);color:#fff}
 
-.collage{position:relative;justify-self:center;width:100%;max-width:460px;height:480px}
-.sun{position:absolute;z-index:0;top:-34px;right:-40px;width:150px;height:150px;border-radius:50%;background:var(--orange)}
+.collage{position:relative;justify-self:center;width:100%;max-width:460px;height:480px;margin-top:calc(var(--h1) * -.51 - 40px)}
+.sun{position:absolute;z-index:0;top:-34px;right:-20px;width:144px;height:144px;border-radius:50%;background:var(--orange)}
 .polaroid{position:absolute;top:8px;right:6px;z-index:2;width:204px;margin:0;padding:12px 12px 52px;background:#fdfcf9;box-shadow:0 1px 1px rgba(22,24,29,.08),0 14px 30px rgba(22,24,29,.16);rotate:3deg}
 .polaroid-photo{position:relative;aspect-ratio:1;overflow:hidden;background:#2a2d33}
 .polaroid-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%;filter:saturate(.95) contrast(1.03)}
@@ -183,6 +183,7 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
 
 @media (max-width:1060px){
   .hero{grid-template-columns:1fr;gap:56px}
+  .collage{margin-top:0}
 }
 @media (max-width:1000px){
   .tickets{grid-template-columns:1fr;max-width:620px}
