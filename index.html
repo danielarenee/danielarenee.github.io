@@ -151,7 +151,7 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
 .project{--c:var(--orange);--c-ink:var(--orange-ink);--c-on:var(--ink);--halo:#f59a74;position:relative;display:flex;flex-direction:column;min-width:0;padding:22px 28px 28px;background:var(--surface);border:1px solid var(--line);border-radius:0 14px 14px 14px;transition:box-shadow .45s ease}
 .project--sky{--c:var(--sky);--c-ink:var(--sky-ink);--halo:var(--sky)}
 .project--yellow{--c:var(--yellow);--c-ink:var(--yellow-ink);--halo:var(--yellow)}
-.project--blue{--c:var(--blue);--c-ink:var(--blue);--c-on:#fff;--halo:#a3b7f6}
+.project--blue{--c:var(--blue);--c-ink:var(--blue);--c-on:#fff;--halo:#93aaf3}
 .tab{position:absolute;bottom:100%;left:-1px;max-width:calc(100% - 32px);margin:0;padding:8px 16px 7px;overflow:hidden;background:var(--c);color:var(--c-on);border-radius:10px 10px 0 0;font:500 12.5px/1.2 var(--mono);white-space:nowrap;text-overflow:ellipsis;transition:padding-top .25s ease}
 .project-top{display:flex;justify-content:flex-end}
 .status{display:inline-flex;align-items:center;gap:8px;color:var(--ink-2);font:500 12.5px/1 var(--mono)}
@@ -243,8 +243,8 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
 .eps label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:600 14px/1.3 var(--sans)}
 .eps output{color:var(--c-ink);font:500 13px var(--mono)}
 .eps input{display:block;width:100%;height:22px;margin:8px 0 0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
-.eps input::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--line) 0 31.5%,color-mix(in srgb,var(--orange) 40%,transparent) 31.5% 79%,var(--line) 79%)}
-.eps input::-moz-range-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--line) 0 31.5%,color-mix(in srgb,var(--orange) 40%,transparent) 31.5% 79%,var(--line) 79%)}
+.eps input::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--line) 0 31.7%,color-mix(in srgb,var(--orange) 40%,transparent) 31.7% 79.4%,var(--line) 79.4%)}
+.eps input::-moz-range-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--line) 0 31.7%,color-mix(in srgb,var(--orange) 40%,transparent) 31.7% 79.4%,var(--line) 79.4%)}
 .eps input::-webkit-slider-thumb{width:18px;height:18px;margin-top:-6px;border:3px solid #fff;border-radius:50%;background:var(--c-ink);box-shadow:0 1px 4px rgba(22,24,29,.35);-webkit-appearance:none;appearance:none}
 .eps input::-moz-range-thumb{width:12px;height:12px;border:3px solid #fff;border-radius:50%;background:var(--c-ink);box-shadow:0 1px 4px rgba(22,24,29,.35)}
 .eps input:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:4px}
@@ -258,7 +258,7 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
 .lens-strip:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
 .negative{display:flex;gap:6px;padding:15px 8px;border-radius:3px;background-color:#5a301a;background-image:radial-gradient(circle at 50% 50%,var(--paper) 0 2.2px,transparent 2.7px),radial-gradient(circle at 50% 50%,var(--paper) 0 2.2px,transparent 2.7px);background-size:12px 10px,12px 10px;background-position:3px 2px,3px calc(100% - 2px);background-repeat:repeat-x;box-shadow:0 10px 22px -12px rgba(22,24,29,.55)}
 .negative img{display:block;width:62px;height:auto;aspect-ratio:3/2;border-radius:1px;filter:invert(1) sepia(.7) saturate(2.2) hue-rotate(-16deg) contrast(1.12) brightness(.74)}
-.lens-note{position:absolute;z-index:0;top:-62px;left:338px;display:flex;align-items:flex-start;gap:4px;color:var(--blue);font:400 28px/1 var(--hand);white-space:nowrap;rotate:-4deg;pointer-events:none}
+.lens-note{position:absolute;z-index:0;top:-62px;left:404px;display:flex;align-items:flex-start;gap:4px;color:var(--blue);font:400 28px/1 var(--hand);white-space:nowrap;rotate:-4deg;pointer-events:none}
 .lens-note svg{flex:none;width:44px;height:30px;margin-top:6px}
 .lens{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:24px 16px;background:rgba(22,24,29,.72)}
 .lens[hidden]{display:none}
@@ -275,6 +275,7 @@ html.lens-open{overflow:hidden}
 .lens-frame:nth-child(2) img{transition-delay:.2s}
 .lens-frame:nth-child(3) img{transition-delay:.4s}
 .lens-frame:nth-child(4) img{transition-delay:.6s}
+.lens-frame:nth-child(5) img{transition-delay:.8s}
 .lens.is-developing .lens-frame img{filter:invert(1) sepia(.7) saturate(2.2) hue-rotate(-16deg) contrast(1.12) brightness(.74)}
 .lens.no-anim .lens-frame img{transition:none}
 .lens-frame figcaption{display:table-caption;caption-side:bottom;padding-top:8px;color:#efe7da;font-size:14.5px;line-height:1.45}
@@ -473,8 +474,8 @@ html.lens-open{overflow:hidden}
             <div class="model-legend"><span>SIRCm, transmission-driven</span><span class="sirc">SIRC (ε = 0)</span></div>
             <div class="eps">
               <label for="eps">Mutation feedback ε̃ <output id="eps-out" for="eps">1.00</output></label>
-              <input id="eps" type="range" min="0" max="2" step="0.01" value="1" aria-describedby="model-status">
-              <div class="eps-scale" aria-hidden="true"><span style="left:0">0</span><span style="left:31.5%">0.63</span><span style="left:79%">1.58</span><span style="left:100%">2</span></div>
+              <input id="eps" type="range" min="0" max="1.99" step="0.01" value="1" aria-describedby="model-status">
+              <div class="eps-scale" aria-hidden="true"><span style="left:0">0</span><span style="left:31.7%">0.63</span><span style="left:79.4%">1.58</span><span style="left:100%">1.99</span></div>
             </div>
             <p class="model-status" id="model-status" aria-live="polite"></p>
             <p class="model-note">Transmission-driven SIRCm from the paper with ε̃₁ = ε̃₂ = ε̃, β₀ = 600, μ = 0.02, α = 365/3, δ = 1/1.6, σ = 0.07874, γ = 0.35. Each run starts at the SIRC endemic equilibrium; the shaded band is the Hopf window where that equilibrium is unstable.</p>
@@ -694,7 +695,7 @@ html.lens-open{overflow:hidden}
 <footer class="contact" id="contact">
   <div class="wrap">
     <button class="lens-strip" type="button" aria-haspopup="dialog" aria-controls="lens" aria-label="Open Through my lens, a few photos from my life">
-      <span class="negative" aria-hidden="true"><img src="lens/lens-1-t.jpg" alt="" width="240" height="160" loading="lazy"><img src="lens/lens-2-t.jpg" alt="" width="240" height="160" loading="lazy"><img src="lens/lens-3-t.jpg" alt="" width="240" height="160" loading="lazy"><img src="lens/lens-4-t.jpg" alt="" width="240" height="160" loading="lazy"></span>
+      <span class="negative" aria-hidden="true"><img src="lens/lens-1-t.jpg" alt="" width="240" height="160" loading="lazy"><img src="lens/lens-2-t.jpg" alt="" width="240" height="160" loading="lazy"><img src="lens/lens-3-t.jpg" alt="" width="240" height="160" loading="lazy"><img src="lens/lens-4-t.jpg" alt="" width="240" height="160" loading="lazy"><img src="lens/lens-5-t.jpg" alt="" width="240" height="160" loading="lazy"></span>
     </button>
     <span class="lens-note" aria-hidden="true"><svg viewBox="0 0 48 32"><path d="M44 5C30 3 15 9 8 24M8 24 6.5 14M8 24l9.5-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>through my lens</span>
     <div class="postcard" data-reveal>
@@ -751,6 +752,7 @@ html.lens-open{overflow:hidden}
       <figure class="lens-frame"><img src="lens/lens-2.jpg" width="1200" height="800" loading="lazy" alt="The Applied Mathematics School cohort giving thumbs up in front of a glass building at KAUST"><figcaption><span>02 · KAUST</span>The Applied Mathematics School cohort, my friends from all over the world</figcaption></figure>
       <figure class="lens-frame"><img src="lens/lens-3.jpg" width="800" height="1200" loading="lazy" alt="A brick building at UDLAP with a row of international flags under an evening sky"><figcaption><span>03 · UDLAP</span>My beautiful uni</figcaption></figure>
       <figure class="lens-frame"><img src="lens/lens-4.jpg" width="800" height="1200" loading="lazy" alt="Me holding my Honors Program certificate next to my best friend on the UDLAP lawn"><figcaption><span>04 · UDLAP</span>The Honors Program ceremony, ft. my best friend</figcaption></figure>
+      <figure class="lens-frame"><img src="lens/lens-5.jpg" width="800" height="1200" loading="lazy" alt="Holding a small beaker of my bacterial strain vials, labeled Cepas Daniela, outside the Medical Microbiology and Biotechnology Research Laboratory"><figcaption><span>05 · LAB</span>I used to do microbiology research for fun!</figcaption></figure>
     </div>
   </div>
 </div>
