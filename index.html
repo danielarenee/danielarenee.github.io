@@ -203,7 +203,8 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
 .log-entry .ink-link{display:inline-block;margin-top:6px;font-size:14.5px}
 
 .contact{padding:120px 0 40px}
-.postcard{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);gap:40px;padding:40px 42px 38px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.contact .wrap{position:relative}
+.postcard{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);gap:40px;padding:40px 42px 38px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
 .postcard-msg{position:relative;align-self:end}
 .postcard-msg h2{font-size:clamp(40px,5vw,60px)}
 .postcard-sign{margin:14px 0 0;color:var(--blue);font:400 42px/1 var(--hand);rotate:-3deg;transform-origin:left}
@@ -228,6 +229,56 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
 .address a{min-width:0;font-size:16px;text-decoration:none;overflow-wrap:anywhere;background:linear-gradient(var(--blue),var(--blue)) left bottom/0 1.5px no-repeat;transition:background-size .25s ease,color .2s ease}
 .address a:hover{color:var(--blue);background-size:100% 1.5px}
 .colophon{margin:34px 0 0;color:var(--muted);text-align:center;font:400 12.5px/1.5 var(--mono)}
+.model-toggle{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin:-6px 0 22px;padding:7px 13px;border:1px dashed var(--c-ink);border-radius:999px;background:none;color:var(--c-ink);font:500 12.5px/1 var(--mono);cursor:pointer;transition:background-color .2s ease}
+.model-toggle:hover{background:color-mix(in srgb,var(--c) 12%,transparent)}
+.model-toggle:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.model{margin:16px 0 18px;padding:14px 14px 12px;background:#fcfbf8;border:1px solid var(--line);border-radius:8px}
+.model[hidden]{display:none}
+.model-chart{display:block;width:100%;height:auto;color:var(--c-ink)}
+.model-chart text{fill:var(--muted);font:500 11px var(--mono)}
+.model-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:4px 0 0;color:var(--muted);font:500 11.5px/1.3 var(--mono)}
+.model-legend span::before{content:"";display:inline-block;width:18px;margin-right:6px;vertical-align:middle;border-top:2.5px solid var(--c-ink)}
+.model-legend .sirc::before{border-top:2px dashed var(--muted)}
+.eps{margin-top:14px}
+.eps label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:600 14px/1.3 var(--sans)}
+.eps output{color:var(--c-ink);font:500 13px var(--mono)}
+.eps input{display:block;width:100%;height:22px;margin:8px 0 0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
+.eps input::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--line) 0 31.5%,color-mix(in srgb,var(--orange) 40%,transparent) 31.5% 79%,var(--line) 79%)}
+.eps input::-moz-range-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--line) 0 31.5%,color-mix(in srgb,var(--orange) 40%,transparent) 31.5% 79%,var(--line) 79%)}
+.eps input::-webkit-slider-thumb{width:18px;height:18px;margin-top:-6px;border:3px solid #fff;border-radius:50%;background:var(--c-ink);box-shadow:0 1px 4px rgba(22,24,29,.35);-webkit-appearance:none;appearance:none}
+.eps input::-moz-range-thumb{width:12px;height:12px;border:3px solid #fff;border-radius:50%;background:var(--c-ink);box-shadow:0 1px 4px rgba(22,24,29,.35)}
+.eps input:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:4px}
+.eps-scale{position:relative;height:16px;margin:2px 9px 0;color:var(--muted);font:500 11px/1 var(--mono)}
+.eps-scale span{position:absolute;top:0;translate:-50% 0}
+.model-status{margin:10px 0 0;color:var(--ink-2);font-size:14.5px}
+.model-note{margin:8px 0 0;color:var(--muted);font:400 12px/1.55 var(--mono)}
+
+.lens-strip{position:absolute;z-index:0;top:-48px;left:40px;padding:0;border:0;background:none;cursor:pointer;rotate:-5deg;transition:translate .45s cubic-bezier(.3,.7,.3,1.3),rotate .45s cubic-bezier(.3,.7,.3,1.3)}
+.lens-strip:hover,.lens-strip:focus-visible{translate:6px -18px;rotate:-2deg}
+.lens-strip:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+.negative{display:flex;gap:6px;padding:15px 8px;border-radius:3px;background-color:#5a301a;background-image:radial-gradient(circle at 50% 50%,var(--paper) 0 2.2px,transparent 2.7px),radial-gradient(circle at 50% 50%,var(--paper) 0 2.2px,transparent 2.7px);background-size:12px 10px,12px 10px;background-position:3px 2px,3px calc(100% - 2px);background-repeat:repeat-x;box-shadow:0 10px 22px -12px rgba(22,24,29,.55)}
+.negative img{display:block;width:62px;height:auto;aspect-ratio:3/2;border-radius:1px;filter:invert(1) sepia(.7) saturate(2.2) hue-rotate(-16deg) contrast(1.12) brightness(.74)}
+.lens-note{position:absolute;z-index:0;top:-62px;left:338px;display:flex;align-items:flex-start;gap:4px;color:var(--blue);font:400 28px/1 var(--hand);white-space:nowrap;rotate:-4deg;pointer-events:none}
+.lens-note svg{flex:none;width:44px;height:30px;margin-top:6px}
+.lens{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:24px 16px;background:rgba(22,24,29,.72)}
+.lens[hidden]{display:none}
+html.lens-open{overflow:hidden}
+.lens-sheet{width:min(1040px,100%);max-height:100%;overflow:auto;padding:22px 22px 26px;background:#1c1510;border-radius:6px;color:#efe7da;box-shadow:0 30px 80px -20px rgba(0,0,0,.6)}
+.lens-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:18px}
+.lens-head h2{margin:0;color:#fff;font:700 28px/1.1 var(--sans);letter-spacing:-.03em}
+.lens-close{padding:7px 14px;border:1px solid rgba(255,255,255,.35);border-radius:999px;background:none;color:#fff;font:500 13px/1 var(--mono);cursor:pointer}
+.lens-close:hover{background:rgba(255,255,255,.1)}
+.lens-close:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
+.lens-frames{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:22px 18px}
+.lens-frame{display:table;margin:0}
+.lens-frame img{display:block;width:auto;height:auto;max-width:100%;max-height:min(46vh,360px);border:6px solid #0e0a07;filter:invert(0) sepia(0) saturate(1) hue-rotate(0deg) contrast(1) brightness(1);transition:filter 2.4s cubic-bezier(.3,.1,.3,1)}
+.lens-frame:nth-child(2) img{transition-delay:.2s}
+.lens-frame:nth-child(3) img{transition-delay:.4s}
+.lens-frame:nth-child(4) img{transition-delay:.6s}
+.lens.is-developing .lens-frame img{filter:invert(1) sepia(.7) saturate(2.2) hue-rotate(-16deg) contrast(1.12) brightness(.74)}
+.lens.no-anim .lens-frame img{transition:none}
+.lens-frame figcaption{display:table-caption;caption-side:bottom;padding-top:8px;color:#efe7da;font-size:14.5px;line-height:1.45}
+.lens-frame figcaption span{display:block;margin-bottom:2px;color:#b8ab98;font:500 11.5px/1.2 var(--mono)}
 
 .js [data-reveal]{opacity:0;translate:0 18px;transition:opacity .7s ease,translate .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
 .js [data-reveal].is-in{opacity:1;translate:none}
@@ -270,6 +321,10 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
   .log-entry p{font-size:16px}
   .postcard{padding:30px 22px 26px}
   .contact{padding-top:90px}
+  .lens-strip{left:18px;top:-38px}
+  .negative img{width:46px}
+  .lens-note{left:26px;top:-84px;font-size:24px}
+  .lens-note svg{width:34px;height:24px;margin-top:8px;rotate:-55deg}
 }
 @media (max-width:540px){
   .collage{display:grid;grid-template-columns:1fr 1fr;gap:26px 10px;align-items:start;height:auto;max-width:400px}
@@ -287,7 +342,7 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .js [data-reveal]{opacity:1;translate:none;transition:none}
-  .btn,.nav a,.address a,.ink-link,.project,.tab,.postcard-addr .stamp,.tile,.js .collage [data-reveal],.collage .stamp,.polaroid,.note{transition:none}
+  .btn,.nav a,.address a,.ink-link,.project,.tab,.postcard-addr .stamp,.tile,.js .collage [data-reveal],.collage .stamp,.polaroid,.note,.lens-strip,.lens-frame img,.model-toggle{transition:none}
 }
 </style>
 </head>
@@ -403,6 +458,28 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
               <text class="lbl" x="284" y="130">t</text>
             </svg>
           </figure>
+          <div class="model" id="sircm" hidden>
+            <svg class="model-chart" viewBox="0 0 600 250" role="img" aria-labelledby="sircm-title">
+              <title id="sircm-title">Infected fraction I(t) over 10 years for the chosen mutation feedback</title>
+              <path d="M48 14V214H588" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".55"/>
+              <path class="m-sirc" fill="none" stroke="#6b6c72" stroke-width="1.6" stroke-dasharray="5 5"/>
+              <path class="m-curve" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+              <text class="m-ymax" x="42" y="18" text-anchor="end">0.5</text>
+              <text x="42" y="218" text-anchor="end">0</text>
+              <text x="52" y="11">I(t)</text>
+              <text x="48" y="232" text-anchor="middle">0</text><text x="156" y="232" text-anchor="middle">2</text><text x="264" y="232" text-anchor="middle">4</text><text x="372" y="232" text-anchor="middle">6</text><text x="480" y="232" text-anchor="middle">8</text><text x="588" y="232" text-anchor="middle">10</text>
+              <text x="318" y="247" text-anchor="middle">time (years)</text>
+            </svg>
+            <div class="model-legend"><span>SIRCm, transmission-driven</span><span class="sirc">SIRC (ε = 0)</span></div>
+            <div class="eps">
+              <label for="eps">Mutation feedback ε̃ <output id="eps-out" for="eps">1.00</output></label>
+              <input id="eps" type="range" min="0" max="2" step="0.01" value="1" aria-describedby="model-status">
+              <div class="eps-scale" aria-hidden="true"><span style="left:0">0</span><span style="left:31.5%">0.63</span><span style="left:79%">1.58</span><span style="left:100%">2</span></div>
+            </div>
+            <p class="model-status" id="model-status" aria-live="polite"></p>
+            <p class="model-note">Transmission-driven SIRCm from the paper with ε̃₁ = ε̃₂ = ε̃, β₀ = 600, μ = 0.02, α = 365/3, δ = 1/1.6, σ = 0.07874, γ = 0.35. Each run starts at the SIRC endemic equilibrium; the shaded band is the Hopf window where that equilibrium is unstable.</p>
+          </div>
+          <button class="model-toggle" type="button" aria-expanded="false" aria-controls="sircm">▶ Play with the model</button>
           <h3>Compartmental Epidemiological Models with Infection-Driven Immune Escape</h3>
           <p class="affiliation">Daniela R. Ramírez-Gutiérrez, Lajos Lóczi, Carlos Muñoz-Moncayo &amp; David I. Ketcheson · 2026 · Submitted to the <em>Journal of Mathematical Biology</em></p>
           <p class="description">Developed a compartmental SIRCm model in which infection-linked feedback affects waning immunity and immune escape. The coauthored study compares prevalence-driven and transmission-driven variants and analyzes when endemic equilibria become unstable, even without seasonal forcing.</p>
@@ -616,6 +693,10 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
 
 <footer class="contact" id="contact">
   <div class="wrap">
+    <button class="lens-strip" type="button" aria-haspopup="dialog" aria-controls="lens" aria-label="Open Through my lens, a few photos from my life">
+      <span class="negative" aria-hidden="true"><img src="lens/lens-1-t.jpg" alt="" width="240" height="160" loading="lazy"><img src="lens/lens-2-t.jpg" alt="" width="240" height="160" loading="lazy"><img src="lens/lens-3-t.jpg" alt="" width="240" height="160" loading="lazy"><img src="lens/lens-4-t.jpg" alt="" width="240" height="160" loading="lazy"></span>
+    </button>
+    <span class="lens-note" aria-hidden="true"><svg viewBox="0 0 48 32"><path d="M44 5C30 3 15 9 8 24M8 24 6.5 14M8 24l9.5-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>through my lens</span>
     <div class="postcard" data-reveal>
       <div class="postcard-msg">
         <h2>Say hola</h2>
@@ -662,10 +743,129 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
   </div>
 </footer>
 
+<div class="lens" id="lens" hidden>
+  <div class="lens-sheet" role="dialog" aria-modal="true" aria-labelledby="lens-title">
+    <div class="lens-head"><h2 id="lens-title">Through my lens</h2><button class="lens-close" type="button">close</button></div>
+    <div class="lens-frames">
+      <figure class="lens-frame"><img src="lens/lens-1.jpg" width="800" height="1200" loading="lazy" alt="My desk at KAUST: a laptop showing simulation plots, sticky notes with the model's equations, a KAUST cup and a KAUST teddy bear"><figcaption><span>01 · KAUST</span>My desk at KAUST, working on simulations for the paper!</figcaption></figure>
+      <figure class="lens-frame"><img src="lens/lens-2.jpg" width="1200" height="800" loading="lazy" alt="The Applied Mathematics School cohort giving thumbs up in front of a glass building at KAUST"><figcaption><span>02 · KAUST</span>The Applied Mathematics School cohort, my friends from all over the world</figcaption></figure>
+      <figure class="lens-frame"><img src="lens/lens-3.jpg" width="800" height="1200" loading="lazy" alt="A brick building at UDLAP with a row of international flags under an evening sky"><figcaption><span>03 · UDLAP</span>My beautiful uni</figcaption></figure>
+      <figure class="lens-frame"><img src="lens/lens-4.jpg" width="800" height="1200" loading="lazy" alt="Me holding my Honors Program certificate next to my best friend on the UDLAP lawn"><figcaption><span>04 · UDLAP</span>The Honors Program ceremony, ft. my best friend</figcaption></figure>
+    </div>
+  </div>
+</div>
+
 <script>
 (() => {
   const items = document.querySelectorAll('[data-reveal]');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const lens = document.getElementById('lens');
+  const strip = document.querySelector('.lens-strip');
+  if (lens && strip) {
+    const closeLens = lens.querySelector('.lens-close');
+    const preload = () => lens.querySelectorAll('img').forEach((img) => { img.loading = 'eager'; });
+    strip.addEventListener('pointerenter', preload, { once: true });
+    strip.addEventListener('focus', preload, { once: true });
+    const openLens = () => {
+      preload();
+      lens.hidden = false;
+      document.documentElement.classList.add('lens-open');
+      if (!reduce) {
+        lens.classList.add('is-developing', 'no-anim');
+        void lens.offsetWidth;
+        lens.classList.remove('no-anim');
+        requestAnimationFrame(() => requestAnimationFrame(() => lens.classList.remove('is-developing')));
+      }
+      closeLens.focus();
+    };
+    const shutLens = () => {
+      lens.hidden = true;
+      document.documentElement.classList.remove('lens-open');
+      strip.focus();
+    };
+    strip.addEventListener('click', openLens);
+    closeLens.addEventListener('click', shutLens);
+    lens.addEventListener('click', (e) => { if (e.target === lens) shutLens(); });
+    document.addEventListener('keydown', (e) => {
+      if (lens.hidden) return;
+      if (e.key === 'Escape') shutLens();
+      if (e.key === 'Tab') { e.preventDefault(); closeLens.focus(); }
+    });
+  }
+
+  const model = document.getElementById('sircm');
+  const modelBtn = document.querySelector('.model-toggle');
+  if (model && modelBtn) {
+    const sketch = model.closest('.project').querySelector('.fig');
+    const eps = document.getElementById('eps');
+    const curve = model.querySelector('.m-curve');
+    const sircLine = model.querySelector('.m-sirc');
+    const yLabel = model.querySelector('.m-ymax');
+    const mu = 0.02, alpha = 365 / 3, delta = 1 / 1.6, sigma = 0.07874, gamma = 0.35, beta = 600;
+    const base = [0.178831178, 0.0011464667, 0.5154765951, 0.3045457602];
+    const g0 = base[0] * base[1];
+    const rhs = (S, I, R, C, e, out) => {
+      const k = 1 + e * S * I;
+      out[0] = mu * (1 - S) - beta * S * I + k * gamma * C;
+      out[1] = beta * S * I + sigma * beta * C * I - (mu + alpha) * I;
+      out[2] = (1 - sigma) * beta * C * I + alpha * I - mu * R - k * delta * R;
+      out[3] = k * delta * R - beta * C * I - mu * C - k * gamma * C;
+    };
+    const k1 = [0, 0, 0, 0], k2 = [0, 0, 0, 0], k3 = [0, 0, 0, 0], k4 = [0, 0, 0, 0];
+    const simulate = (epsTilde) => {
+      const e = epsTilde / g0, dt = 0.0005, steps = 20000, bins = 540, pts = [];
+      let [S, I, R, C] = base, peak = 0, bin = -1, lo = 0, hi = 0, loAt = 0, hiAt = 0;
+      const flush = () => { if (bin < 0) return; const x = bin / (bins - 1) * 10; if (loAt <= hiAt) pts.push([x, lo], [x, hi]); else pts.push([x, hi], [x, lo]); };
+      for (let n = 0; n <= steps; n++) {
+        const b = Math.min(bins - 1, Math.floor(n / steps * bins));
+        if (b !== bin) { flush(); bin = b; lo = hi = I; loAt = hiAt = n; }
+        if (I < lo) { lo = I; loAt = n; }
+        if (I > hi) { hi = I; hiAt = n; }
+        if (I > peak) peak = I;
+        rhs(S, I, R, C, e, k1);
+        rhs(S + dt / 2 * k1[0], I + dt / 2 * k1[1], R + dt / 2 * k1[2], C + dt / 2 * k1[3], e, k2);
+        rhs(S + dt / 2 * k2[0], I + dt / 2 * k2[1], R + dt / 2 * k2[2], C + dt / 2 * k2[3], e, k3);
+        rhs(S + dt * k3[0], I + dt * k3[1], R + dt * k3[2], C + dt * k3[3], e, k4);
+        S += dt / 6 * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0]);
+        I += dt / 6 * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1]);
+        R += dt / 6 * (k1[2] + 2 * k2[2] + 2 * k3[2] + k4[2]);
+        C += dt / 6 * (k1[3] + 2 * k2[3] + 2 * k3[3] + k4[3]);
+      }
+      flush();
+      return { pts, peak };
+    };
+    const niceMax = (v) => {
+      const p = Math.pow(10, Math.floor(Math.log10(v)));
+      return [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10].map((m) => m * p).find((m) => m >= v);
+    };
+    const render = () => {
+      const t = +eps.value;
+      const { pts, peak } = simulate(t);
+      const yMax = niceMax(Math.max(peak, base[1]) * 1.05);
+      const X = (yr) => 48 + yr / 10 * 540;
+      const Y = (v) => 214 - v / yMax * 200;
+      curve.setAttribute('d', 'M' + pts.map(([yr, v]) => `${X(yr).toFixed(1)} ${Y(v).toFixed(1)}`).join(' L'));
+      sircLine.setAttribute('d', `M48 ${Y(base[1]).toFixed(1)} H588`);
+      yLabel.textContent = String(+yMax.toPrecision(2));
+      document.getElementById('eps-out').textContent = t.toFixed(2);
+      document.getElementById('model-status').textContent = t < 0.63
+        ? 'Stable: after a few damped waves, prevalence settles a little above the SIRC level.'
+        : t <= 1.58
+          ? 'Inside the Hopf window: the endemic equilibrium is unstable, so the infection keeps returning in large waves, with no seasons needed.'
+          : 'Stable again: strong feedback pushes prevalence up toward the SIS-type ceiling, and the waves die out.';
+    };
+    let frame = 0;
+    eps.addEventListener('input', () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(render); });
+    modelBtn.addEventListener('click', () => {
+      const opening = model.hidden;
+      model.hidden = !opening;
+      sketch.hidden = opening;
+      modelBtn.setAttribute('aria-expanded', String(opening));
+      modelBtn.textContent = opening ? '← Back to the sketch' : '▶ Play with the model';
+      if (opening) render();
+    });
+  }
   if (reduce || !('IntersectionObserver' in window)) {
     items.forEach((el) => el.classList.add('is-in'));
     return;
