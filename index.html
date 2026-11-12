@@ -314,14 +314,8 @@ main:focus{outline:none}
 .project--blue .fig svg{height:230px}
 .map-marker{stroke:var(--orange)}
 .map-label{fill:var(--ink);font:600 22px var(--sans);paint-order:stroke;stroke:var(--inset);stroke-width:6px;stroke-linejoin:round;pointer-events:none}
-.map-ui{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:-10px 0 20px;color:var(--muted);font:500 12.5px/1.5 var(--mono)}
-.map-ui[hidden]{display:none}
-.map-ui label{color:var(--ink-2)}
-.map-ui select{max-width:100%;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font:500 12.5px/1.3 var(--mono)}
-.map-ui select:focus-visible{outline:2px solid var(--link);outline-offset:2px}
-.map-readout{flex-basis:100%;margin:0}
-.map-readout b{color:var(--ink);font-weight:500}
-.map-note{flex-basis:100%;margin:0;font-weight:400;font-size:12px}
+.map-note{margin:-10px 0 20px;color:var(--muted);font:400 12px/1.5 var(--mono)}
+.map-note[hidden]{display:none}
 .link-btn{padding:0;border:0;background:none;font-family:inherit;line-height:inherit;cursor:pointer}
 .link-btn:focus-visible{outline:2px solid var(--link);outline-offset:3px;border-radius:2px}
 .cite-box{margin-top:14px;padding:12px 14px;background:var(--inset);border:1px solid var(--line);border-radius:8px}
@@ -631,12 +625,7 @@ main:focus{outline:none}
               <g class="mx-nodes" fill="currentColor"><circle cx="10.3" cy="13.8" r="5"/><circle cx="75.2" cy="104" r="5"/><circle cx="121.8" cy="82.6" r="5"/><circle cx="204.7" cy="30.2" r="5"/><circle cx="211.1" cy="91.4" r="5"/><circle cx="317.1" cy="150.2" r="5"/><circle cx="260.3" cy="153.2" r="5"/><circle cx="187.3" cy="168.0" r="5"/><circle cx="133.7" cy="181.2" r="5"/><circle cx="304.8" cy="221.0" r="5"/><circle cx="261.4" cy="250.6" r="5"/><circle cx="292.0" cy="241.6" r="5"/><circle cx="315.7" cy="252.2" r="5"/><circle cx="338.8" cy="275.4" r="7"/><circle cx="355.8" cy="283.2" r="5"/><circle cx="393.8" cy="280.6" r="5"/><circle cx="325.0" cy="327.0" r="5"/><circle cx="382.8" cy="322.8" r="5"/><circle cx="449.0" cy="329.0" r="5"/><circle cx="452.5" cy="304.2" r="5"/><circle cx="513.2" cy="244.6" r="5"/><circle cx="564.0" cy="240.8" r="5"/><circle cx="362.1" cy="219.4" r="5"/><circle cx="205.2" cy="199.2" r="5"/><circle cx="237.3" cy="183.6" r="5"/><circle cx="275.5" cy="208.6" r="5"/><circle cx="496.5" cy="267.0" r="5"/><circle cx="537.4" cy="294.0" r="5"/></g>
             </svg>
           </figure>
-          <div class="map-ui" hidden>
-            <label for="map-from">Shortest paths from</label>
-            <select id="map-from"></select>
-            <p class="map-readout" aria-live="polite">Farthest on this network: <b></b></p>
-            <p class="map-note">Click a city on the map or pick one here. Illustrative network, not the model from the talk.</p>
-          </div>
+          <p class="map-note" hidden>Click a city on the map to see the shortest paths from it. Illustrative network, not the model from the talk.</p>
           <h3>An Algorithm for Constructing Inter-City Road Connectivity Networks</h3>
           <p class="affiliation">Daniela R. Ramírez-Gutiérrez &amp; Héctor Maravillo · 2026</p>
           <p class="description">Designed an algorithm to build inter-city connectivity networks from detailed road graphs. The approach combines network contraction with multi-source Dijkstra and is applied to Mexico’s national road network. Presented at the XIV Conference of the Mexican Society for Operations Research (Universidad de Monterrey, 7–9 October 2026).</p>
@@ -1160,8 +1149,6 @@ main:focus{outline:none}
       c.style.transformBox = 'fill-box';
       c.style.transformOrigin = 'center';
     });
-    const select = document.getElementById('map-from');
-    const farthestName = document.querySelector('.map-readout b');
     let current = null;
     let ring = null;
 
@@ -1225,10 +1212,6 @@ main:focus{outline:none}
         edges.style.transition = 'none';
         edges.style.opacity = '';
       }
-      let farthest = source;
-      dist.forEach((d, k) => { if (d > dist.get(farthest)) farthest = k; });
-      if (farthestName) farthestName.textContent = names.get(farthest) || '';
-      if (select) select.value = source;
       current = source;
       point(null);
     };
@@ -1256,19 +1239,14 @@ main:focus{outline:none}
       const k = nearest(...locate(e), 60);
       if (k) draw(k, canAnimate);
     });
-    if (select) {
-      [...names].sort((a, b) => a[1].localeCompare(b[1], 'es')).forEach(([k, name]) => select.add(new Option(name, k)));
-      select.addEventListener('change', () => draw(select.value, canAnimate));
-    }
-    const ui = document.querySelector('.map-ui');
-    if (ui) ui.hidden = false;
+    const note = document.querySelector('.map-note');
+    if (note) note.hidden = false;
 
     const start = key(338.8, 275.4);
     if (canAnimate) {
       nodes.forEach((c) => { c.style.transform = 'scale(.45)'; c.style.opacity = 0.35; });
       edges.style.opacity = 0.15;
     }
-    if (select) select.value = start;
     whenSeen(map, () => draw(start, canAnimate), 0.4);
   }
 
