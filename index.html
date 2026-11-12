@@ -79,7 +79,6 @@
   --grid:linear-gradient(rgba(22,24,29,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(22,24,29,.06) 1px,transparent 1px);
   --hex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='24.249' viewBox='0 0 42 24.249'%3E%3Cpath d='M0 12.124 7 0h14l7 12.124L21 24.249H7zM28 12.124h14' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3C/svg%3E");
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#14100d;--surface:#1e1814;--inset:#18130f;--print:#f2e7d8;--ink:#f4ecdf;--ink-2:#cdc2b2;--muted:#9a8f80;--line:#3a3028;--link:#ffa46b;--link-soft:rgba(255,164,107,.35);--on-link:#14100d;--blue-ink:#9db1f7;--orange-ink:#ff8552;--sky-ink:#74c5f1;--yellow-ink:#f0c64f;--hex-opacity:.17;--tape-blend:normal;--lamp:var(--orange);--lamp-glow:0 0 0 3px rgba(239,90,36,.22),0 0 12px rgba(239,90,36,.8);--orb:linear-gradient(140deg,rgba(255,170,80,.5) 5%,rgba(236,70,36,.55) 50%,rgba(180,36,30,.45) 92%);--grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .9 0 0 0 0 .78 0 0 0 .16 -.06'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");--grid:linear-gradient(rgba(244,236,223,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(244,236,223,.08) 1px,transparent 1px);color-scheme:dark}}
 :root[data-theme="dark"]{--paper:#14100d;--surface:#1e1814;--inset:#18130f;--print:#f2e7d8;--ink:#f4ecdf;--ink-2:#cdc2b2;--muted:#9a8f80;--line:#3a3028;--link:#ffa46b;--link-soft:rgba(255,164,107,.35);--on-link:#14100d;--blue-ink:#9db1f7;--orange-ink:#ff8552;--sky-ink:#74c5f1;--yellow-ink:#f0c64f;--hex-opacity:.17;--tape-blend:normal;--lamp:var(--orange);--lamp-glow:0 0 0 3px rgba(239,90,36,.22),0 0 12px rgba(239,90,36,.8);--orb:linear-gradient(140deg,rgba(255,170,80,.5) 5%,rgba(236,70,36,.55) 50%,rgba(180,36,30,.45) 92%);--grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .9 0 0 0 0 .78 0 0 0 .16 -.06'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");--grid:linear-gradient(rgba(244,236,223,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(244,236,223,.08) 1px,transparent 1px);color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--paper)}
@@ -852,9 +851,8 @@ main:focus{outline:none}
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canAnimate = !reduce && 'IntersectionObserver' in window;
 
-  const scheme = window.matchMedia('(prefers-color-scheme: dark)');
   const toggles = document.querySelectorAll('[data-theme-toggle]');
-  const isDark = () => (root.dataset.theme ? root.dataset.theme === 'dark' : scheme.matches);
+  const isDark = () => root.dataset.theme === 'dark';
   const syncTheme = () => {
     const dark = isDark();
     toggles.forEach((btn) => btn.setAttribute('aria-pressed', String(dark)));
@@ -867,7 +865,6 @@ main:focus{outline:none}
     try { localStorage.setItem('theme', next); } catch (e) {}
     syncTheme();
   }));
-  scheme.addEventListener('change', syncTheme);
   new MutationObserver(syncTheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   syncTheme();
 
