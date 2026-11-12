@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#faf8f3">
+<title>Page not found — Daniela Renée</title>
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;600;800&display=swap">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<style>
+:root{
+  color-scheme:light;
+  --paper:#faf8f3;
+  --ink:#16181d;
+  --ink-2:#3e4350;
+  --muted:#6b6c72;
+  --print:#fdfcf9;
+  --link:#2448c9;
+  --on-link:#fff;
+  --orange:#ef5a24;
+  --glow:linear-gradient(140deg,rgba(243,194,52,.72) 5%,rgba(239,90,36,.6) 50%,rgba(236,128,96,.48) 92%);
+  --tape-blend:multiply;
+  --sans:'Schibsted Grotesk',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'DM Mono',ui-monospace,'SFMono-Regular',monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#14100d;--ink:#f4ecdf;--ink-2:#cdc2b2;--muted:#9a8f80;--print:#f2e7d8;--link:#ffa46b;--on-link:#14100d;--glow:linear-gradient(140deg,rgba(255,170,80,.5) 5%,rgba(236,70,36,.55) 50%,rgba(180,36,30,.45) 92%);--tape-blend:normal;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#14100d;--ink:#f4ecdf;--ink-2:#cdc2b2;--muted:#9a8f80;--print:#f2e7d8;--link:#ffa46b;--on-link:#14100d;--glow:linear-gradient(140deg,rgba(255,170,80,.5) 5%,rgba(236,70,36,.55) 50%,rgba(180,36,30,.45) 92%);--tape-blend:normal;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{display:grid;place-items:center;min-height:100vh;min-height:100svh;margin:0;padding:48px 20px;background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+main{display:grid;grid-template-columns:auto minmax(0,1fr);gap:28px 56px;align-items:center;width:min(820px,100%)}
+.scene{position:relative;width:230px;height:290px}
+.glow{position:absolute;inset:10px -40px 10px -30px;border-radius:47% 53% 58% 42%/52% 44% 56% 48%;background:var(--glow);-webkit-mask-image:radial-gradient(closest-side,#000 44%,transparent 100%);mask-image:radial-gradient(closest-side,#000 44%,transparent 100%);filter:blur(12px)}
+.polaroid{position:absolute;top:14px;left:12px;width:204px;margin:0;padding:12px 12px 52px;background:var(--print);box-shadow:0 1px 1px rgba(22,24,29,.08),0 14px 30px rgba(22,24,29,.16);rotate:-4deg}
+.blank{aspect-ratio:1;background:linear-gradient(150deg,#ece7da,#d9d3c3);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08),inset 0 0 18px rgba(0,0,0,.1)}
+.tape{position:absolute;top:-12px;left:50%;width:92px;height:26px;margin-left:-46px;rotate:5deg;background-color:rgba(79,176,230,.5);background-image:repeating-linear-gradient(-45deg,rgba(255,255,255,.25) 0 4px,transparent 4px 9px);clip-path:polygon(0 12%,4% 0,96% 0,100% 14%,97% 32%,100% 50%,97% 68%,100% 86%,96% 100%,4% 100%,0 88%,3% 70%,0 52%,3% 34%);mix-blend-mode:var(--tape-blend)}
+.eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 14px;color:var(--muted);font:500 13px/1 var(--mono)}
+.eyebrow::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--orange)}
+h1{margin:0;font:800 clamp(38px,7vw,64px)/.95 var(--sans);letter-spacing:-.045em;text-wrap:balance}
+p{max-width:38ch;margin:18px 0 0;color:var(--ink-2)}
+.btn{display:inline-flex;align-items:center;gap:7px;margin-top:28px;padding:12px 18px;border:1.5px solid var(--ink);border-radius:999px;background:var(--ink);color:var(--paper);text-decoration:none;font:600 15px/1 var(--sans);transition:background-color .18s ease,border-color .18s ease,color .18s ease}
+.btn:hover{background:var(--link);border-color:var(--link);color:var(--on-link)}
+.btn:focus-visible{outline:2px solid var(--link);outline-offset:3px}
+@media (max-width:640px){
+  main{grid-template-columns:1fr;justify-items:start}
+  .scene{width:200px;height:250px}
+  .polaroid{width:176px;padding:10px 10px 44px}
+}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="scene" aria-hidden="true">
+    <div class="glow"></div>
+    <figure class="polaroid"><span class="tape"></span><div class="blank"></div></figure>
+  </div>
+  <div>
+    <p class="eyebrow">Error 404</p>
+    <h1>This page didn’t develop.</h1>
+    <p>The link may be old, or the page may have moved. Everything else is still on the main page.</p>
+    <a class="btn" href="/">Back to the portfolio <span aria-hidden="true">→</span></a>
+  </div>
+</main>
+</body>
+</html>
