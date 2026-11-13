@@ -1127,8 +1127,9 @@ main:focus{outline:none}
       if (ys.length < 2) return;
       const first = ys[0];
       const span = ys[ys.length - 1] - first;
+      if (!(span > 0)) return;
       if (canAnimate) {
-        const atEnd = window.innerHeight + window.scrollY >= root.scrollHeight - 4;
+        const atEnd = root.scrollHeight > window.innerHeight + 4 && window.innerHeight + window.scrollY >= root.scrollHeight - 4;
         const tip = window.innerHeight * 0.7 - logWrap.getBoundingClientRect().top;
         drawn = Math.max(drawn, atEnd ? 1 : Math.min(1, (tip - first) / span));
       } else {
