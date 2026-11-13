@@ -214,6 +214,16 @@ h2{margin:0;font:700 clamp(36px,4.8vw,58px)/1 var(--sans);letter-spacing:-.045em
 .log-entry{min-width:0}
 .log-entry p{margin:0;font-size:17px;line-height:1.6}
 .log-entry .ink-link{display:inline-block;margin-top:6px;font-size:14.5px}
+.log-wrap{position:relative}
+.log-line{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.log-line path{fill:none;stroke:var(--blue-ink);stroke-width:2.2;stroke-linecap:round}
+.has-line .log li{grid-template-columns:152px 28px minmax(0,1fr);gap:0 12px;padding-bottom:0;border-bottom:0}
+.has-line .log-entry{padding-bottom:20px;border-bottom:1px solid var(--line)}
+.log-pin{position:relative;z-index:1;justify-self:center;width:12px;height:12px;margin-top:5px;border:2px solid var(--blue-ink);border-radius:50%;background:var(--paper);transition:background-color .25s ease,scale .35s cubic-bezier(.3,1.6,.5,1)}
+.log li.is-on .log-pin{background:var(--orange);scale:1.2}
+.is-live .log time,.is-live .log-entry p,.is-live .log-entry .ink-link{transition:opacity .5s ease,translate .5s ease}
+.is-live .log li:not(.is-on) time{opacity:.4}
+.is-live .log li:not(.is-on) .log-entry p,.is-live .log li:not(.is-on) .log-entry .ink-link{opacity:.25;translate:10px 0}
 
 .contact{padding:120px 0 40px}
 .contact .wrap{position:relative}
@@ -366,6 +376,7 @@ main:focus{outline:none}
   .project{padding:20px 20px 24px}
   .fig svg{height:150px}
   .log li{grid-template-columns:84px minmax(0,1fr);gap:14px}
+  .has-line .log li{grid-template-columns:78px 18px minmax(0,1fr);gap:0 8px}
   .log time{font-size:12px}
   .log-entry p{font-size:16px}
   .postcard{padding:30px 22px 26px}
@@ -710,7 +721,8 @@ main:focus{outline:none}
         <h2 id="updates-title">Updates</h2>
         <p class="section-note">Small milestones from the work I’m doing and the communities I’m part of.</p>
       </div>
-      <ol class="log" data-reveal>
+      <div class="log-wrap" data-reveal>
+      <ol class="log">
           <li>
             <time datetime="2026-10">October 2026</time>
             <div class="log-entry">
@@ -764,6 +776,7 @@ main:focus{outline:none}
             </div>
           </li>
       </ol>
+      </div>
     </section>
   </div>
 </main>
@@ -1086,6 +1099,75 @@ main:focus{outline:none}
         dots.forEach((el) => { el.style.opacity = ''; el.style.transform = ''; });
       }, 0.35);
     });
+  }
+
+  const logWrap = document.querySelector('.log-wrap');
+  const logRows = logWrap ? [...logWrap.querySelectorAll('.log > li')] : [];
+  if (logRows.length > 1) {
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const pins = logRows.map((li) => {
+      const pin = document.createElement('span');
+      pin.className = 'log-pin';
+      pin.setAttribute('aria-hidden', 'true');
+      li.insertBefore(pin, li.querySelector('.log-entry'));
+      return pin;
+    });
+    const inkSvg = document.createElementNS(svgNS, 'svg');
+    inkSvg.setAttribute('class', 'log-line');
+    inkSvg.setAttribute('aria-hidden', 'true');
+    const ink = document.createElementNS(svgNS, 'path');
+    inkSvg.appendChild(ink);
+    logWrap.prepend(inkSvg);
+    logWrap.classList.add('has-line');
+    if (canAnimate) logWrap.classList.add('is-live');
+    let ys = [];
+    let inkLength = 0;
+    let drawn = -1;
+    const paint = () => {
+      if (ys.length < 2) return;
+      const first = ys[0];
+      const span = ys[ys.length - 1] - first;
+      if (canAnimate) {
+        const atEnd = window.innerHeight + window.scrollY >= root.scrollHeight - 4;
+        const tip = window.innerHeight * 0.7 - logWrap.getBoundingClientRect().top;
+        drawn = Math.max(drawn, atEnd ? 1 : Math.min(1, (tip - first) / span));
+      } else {
+        drawn = 1;
+      }
+      ink.style.strokeDashoffset = inkLength * (1 - Math.max(0, drawn));
+      logRows.forEach((li, i) => li.classList.toggle('is-on', drawn >= (ys[i] - first) / span - 0.004));
+    };
+    const measure = () => {
+      const box = logWrap.getBoundingClientRect();
+      ys = pins.map((pin) => {
+        const r = pin.getBoundingClientRect();
+        return r.top + r.height / 2 - box.top;
+      });
+      const r0 = pins[0].getBoundingClientRect();
+      const x = Math.round((r0.left + r0.width / 2 - box.left) * 10) / 10;
+      const end = ys[ys.length - 1];
+      let d = `M${x} ${ys[0].toFixed(1)}`;
+      for (let y = ys[0], i = 0; y < end; i++) {
+        const next = Math.min(y + 28, end);
+        d += ` Q${x + (i % 2 ? 2.6 : -2.6)} ${((y + next) / 2).toFixed(1)} ${x} ${next.toFixed(1)}`;
+        y = next;
+      }
+      ink.setAttribute('d', d);
+      inkLength = ink.getTotalLength();
+      ink.style.strokeDasharray = `${inkLength} ${inkLength}`;
+      paint();
+    };
+    if (canAnimate) {
+      let queued = false;
+      window.addEventListener('scroll', () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => { queued = false; paint(); });
+      }, { passive: true });
+    }
+    if ('ResizeObserver' in window) new ResizeObserver(measure).observe(logWrap);
+    else window.addEventListener('resize', measure);
+    measure();
   }
 
   const map = document.querySelector('.project--blue .fig svg');
